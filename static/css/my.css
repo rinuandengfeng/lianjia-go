@@ -1,0 +1,18 @@
+
+.login {
+    width: 230px;
+    height: auto;
+    box-shadow: 0px 0px 20px black;
+    margin: auto;
+    margin-top: 100px;
+    background-color: aqua;
+}
+
+.main {
+    width: 580px;
+    height: auto;
+    box-shadow: 0px 0px 20px black;
+    margin: auto;
+    padding-left: 10px;
+    padding-top:10px;
+}

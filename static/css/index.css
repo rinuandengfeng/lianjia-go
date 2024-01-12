@@ -1,0 +1,73 @@
+#head_title{
+    background-color: aqua;
+    position: absolute;
+    height: 10%;
+    top: 0%;
+    width: 100%;
+    left: 0%;
+    
+}
+
+#m1{
+    background-color: aquamarine;
+    position: absolute;
+    top: 10%;
+    left: 0%;
+    width: 25%;
+    height: 40%;
+    text-align: center;
+}
+
+#m2{
+    background-color: bisque;
+    
+    position: absolute;
+    float: left;
+    top: 10%;
+    left: 25%;
+    height: 40%;
+    width: 50%;
+}
+
+#m3{
+    background-color: blue;
+    position: absolute;
+    float: right;
+    height: 40%;
+    top: 10%;
+    right: 0%;
+    width: 25%;
+}
+
+#m4{
+    background-color: greenyellow;
+    height: 40%;
+    position: absolute;
+    /* float: left; */
+    left: 0%;
+    height: 50%;
+    width: 25%;
+    top: 50%;
+
+}
+
+#m5{
+    background-color: blueviolet;
+    height: 40%;
+    position: absolute;
+    top:  50%;
+    height: 50%;
+    left: 25%;
+    width: 45%;
+}
+
+#m6{
+    background-color: red;
+    position: absolute;
+    float: right;
+    top: 50%;
+    height: 50%;
+    width: 30%;
+    height: 50%;
+    right: 0%;
+}

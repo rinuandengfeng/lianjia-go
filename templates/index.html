@@ -1,0 +1,248 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>链家数据分析</title>
+    <script type="text/javascript" src="../../static/js/jquery.js"></script>
+    <link rel="stylesheet" href="../../static/css/comon0.css">
+
+    <!-- <script src="../../static/js/jquery-3.4.1.min.js"></script> -->
+    <style>
+        input {
+            color: black;
+        }
+    </style>
+
+</head>
+
+<body>
+<div class="loading">
+    <div class="loadbox"><img src="../../static/images/loading.gif"> 页面加载中...</div>
+</div>
+<div class="head">
+    <h1><a href="https://gitee.com/iGaoWei/big-data-view">房屋成交数据可视化</a></h1>
+</div>
+<div class="mainbox">
+    <ul class="clearfix">
+        <li>
+            <div class="boxall" style="height:calc(33.3333% - .25rem)">
+                <div class="tit01"> 2023年各月份销售趋势曲线图</div>
+                <div class="boxnav nav01" id="echart1"></div>
+                <div class="boxfoot"></div>
+            </div>
+            <div style="height:calc(33.3333% - .25rem); margin-bottom: .25rem;">
+
+                <div class="boxall" style="height: 100%; width:calc(50% - .08rem); float: left;">
+                    <div class="tit01">各地区成交</div>
+                    <div class="boxnav nav01" id="echart2"></div>
+                    <div class="boxfoot"></div>
+                </div>
+
+                <div class="boxall" style="height: 100%; width:calc(50% - .08rem); float: right;">
+                    <div class="tit01">完成指标区数量</div>
+                    <div class="boxnav nav01" style="display: flex; align-items: center;">
+                        <p class="p2"><span class="counter">19</span>/<span class="counter">25</span></p>
+                    </div>
+                    <div class="boxfoot"></div>
+                </div>
+            </div>
+
+            <div class="boxall" style="height:calc(33.3333% - .25rem)">
+                <div class="tit01">近年年总售量折线图</div>
+                <div class="boxnav nav01" id="echart3"></div>
+                <div class="boxfoot"></div>
+            </div>
+        </li>
+        <li>
+            <div class="boxall" style="height:calc(33.33333% - .25rem)">
+                <div class="tit02">本月计划</div>
+                <div class="boxnav nav02">
+                    <div>
+                        <p class="p1">完成量/计划数</p>
+                        <p class="p2">
+                            <span class="counter" id="year_num"></span>/
+
+                            <span class="counter" id="total_num"></span>
+                        </p>
+                    </div>
+                </div>
+                <div class="boxfoot"></div>
+            </div>
+            <div class="boxall" style="height:calc(66.666666% - .25rem)">
+                <div class="tit03"> 房屋热门导购</div>
+                <div class="boxnav nav03">
+
+                    <div class="listhead listhead1">
+                        <span>成交日期</span>
+                        <span>房屋区域</span>
+                        <span>房屋户型</span>
+                        <span>建筑面积</span>
+                        <span>成交单价</span>
+                        <span>成交价</span>
+                    </div>
+                    <div class="listnav listnav1 scrollDiv" id="house_info">
+                        <ul>
+                        </ul>
+                    </div>
+
+
+                </div>
+                <div class="boxfoot"></div>
+            </div>
+        </li>
+        <li>
+
+            <div class="boxall" style="height:calc(100% - .25rem); padding: 0;">
+
+
+                <div class="tit04">房屋成交预测</div>
+                <div class="boxnav nav04">
+
+                    <div class="ymain">
+                        <h2>好房源那么多，我们为您精选.</h2>
+                        <form action="" class="b" id="form_data" style="color: write">
+                            <label class="a">楼盘名称：</label><input name="buildingName" placeholder="如：阿卡迪亚"><br>
+                            <label class="a">建筑面积：</label><input name="area" placeholder="如：60.5">
+                            <font size="3">㎡</font>
+                            <br>
+                            <label class="a">房屋户型：</label><input name="houseType" placeholder="如：2室2厅1厨1卫"><br>
+                            <label class="a">建成年代：</label><input name="year" placeholder="如：2008">
+                            <font size="3">年</font>
+                            <br>
+                            <label class="a">总楼层数：</label><input name="totalFloor" placeholder="如：18"><br>
+                            <label class="a">所在楼层：</label>
+                            <select class="c" name="floor">
+                                <option value="高楼层">高楼层</option>
+                                <option value="中楼层">中楼层</option>
+                                <option value="低楼层">低楼层</option>
+                                <option value="地下室">地下室</option>
+                            </select>
+                            <br>
+                            <label class="a">户型结构：</label>
+                            <select class="c" name="structure">
+                                <option value="平层">平层</option>
+                                <option value="跃层">跃层</option>
+                                <option value="错层">错层</option>
+                                <option value="复式">复式</option>
+                            </select><br>
+                            <label class="a">建筑类型：</label>
+                            <select class="c" name="buildingType">
+                                <option value="塔楼">塔楼</option>
+                                <option value="板楼">板楼</option>
+                                <option value="平房">平房</option>
+                                <option value="板塔结合">板塔结合</option>
+                            </select><br>
+                            <label class="a">装修情况：</label>
+                            <select class="c" name="decoration">
+                                <option value="精装">精装</option>
+                                <option value="简装">简装</option>
+                                <option value="毛坯">毛坯</option>
+                                <option value="其他">其他</option>
+                            </select><br>
+                            <label class="a">供暖方式：</label>
+                            <select class="c" name="heating">
+                                <option value="自供暖">自供暖</option>
+                                <option value="集中供暖">集中供暖</option>
+                            </select><br>
+                            <label class="a">配备电梯：</label>
+                            <select class="c" name="elevator">
+                                <option value="有">有</option>
+                                <option value="无">无</option>
+                            </select><br>
+                            <label class="a">房屋朝向：</label>
+                            <input type="checkbox" name="orientation" value="东">
+                            <font size="3">东</font>
+                            <input type="checkbox" name="orientation" value="南">
+                            <font size="3">南</font>
+                            <input type="checkbox" name="orientation" value="西">
+                            <font size="3">西</font>
+                            <input type="checkbox" name="orientation" value="北">
+                            <font size="3">北 <br></font>
+                            <input type="checkbox" name="orientation" value="东南">
+                            <font size="3">东南 </font>
+                            <input type="checkbox" name="orientation" value="东北">
+                            <font size="3">东北</font>
+                            <input type="checkbox" name="orientation" value="西南">
+                            <font size="3">西南</font>
+                            <input type="checkbox" name="orientation" value="西北">
+                            <font size="3">西北</font>
+                            <br>
+                            <label class="a">房屋用途：</label>
+                            <select class="c" name="usage">
+                                <option value="普通住宅">普通住宅</option>
+                                <option value="写字楼">写字楼</option>
+                                <option value="别墅">别墅</option>
+                                <option value="商业">商业</option>
+                                <option value="商住两用">商住两用</option>
+                                <option value="底商">底商</option>
+                            </select><br>
+                            <label class="a">房权所属：</label>
+                            <select class="c" name="ownership">
+                                <option value="共有">共有</option>
+                                <option value="非共有">非共有</option>
+                            </select><br>
+                        </form>
+                        <br>
+
+                        <button class="ybtn" id="ybtn1">预测价格</button>
+                        <div>
+                            <h1 id="price" style="color: black;"></h1>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="boxfoot"></div>
+            </div>
+
+
+        </li>
+    </ul>
+</div>
+
+
+<script type="text/javascript" src="../../static/js/echarts.min.js"></script>
+<script src="../../static/js/jquery.liMarquee.js"></script>
+<script type="text/javascript" src="../../static/js/js.js"></script>
+<script type="text/javascript" src="../../static/js/jquery.countup.min.js"></script>
+<script type="text/javascript" src="../../static/js/jquery.waypoints.min.js"></script>
+<script type="text/javascript">
+    $($("#ybtn1").click(function () {
+        var data = $("#form_data").serialize();
+        $.ajax({
+            url: '/predict',
+            type: 'post',
+            data: data,
+            success: function (data) {
+                console.log(data);
+                $("#price").html(data.price + "万元");
+            }
+        });
+    }))
+</script>
+
+<script src="../../static/js/countDown.js"></script>
+<script type="text/javascript">
+
+
+    $("input[name='countDown']").each(function () {
+        var time_end = this.value;
+        var con = $(this).next("span");
+        console.log(con);
+        var _ = this.dataset;
+        countDown(con, {
+            time_end: time_end//开始时间
+        })
+            //提供3个事件分别为:启动,重启,停止
+            .on("countDownStarted countDownRestarted  countDownEnded ", function (arguments) {
+                console.info(arguments);
+            });
+    });
+
+
+</script>
+<!-- <meta http-equiv="refresh" content="5;url='https://blog.csdn.net/qq_31766533/article/details/119274641'"> -->
+</body>
+
+</html>

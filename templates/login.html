@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>登录</title>
+	<script src="../../static/js/jquery-3.4.1.min.js"></script>
+	<link href="../../static/css/bootstrap.min.css" rel="stylesheet" />
+	<script src="../../static/js/bootstrap.min.js"></script>
+	<script src="../../static/js/public.js"></script>
+	<script src="../../static/js/sweetalert.min.js"></script>
+	<style>
+		.container {
+			background: url(../../static/img/swiper/1.png);
+			background-size: cover;
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			align-items: center;
+		}
+
+		.login-pane {
+			background-color: #5f7a9d;
+			/* padding: 10px; */
+			margin: auto;
+			width: 350px;
+			box-shadow: 10px 10px 20px black;
+			margin-top: 220px;
+		}
+
+		.login-pane div {
+			padding: 10px;
+		}
+
+		.msgbox {}
+
+		.form-header a {
+			color: white;
+			text-decoration: none;
+		}
+
+		.msgbox {
+			text-align: center;
+			color: #FFF;
+			/* display: none; */
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="login-pane">
+			<form>
+				<div class="form-header">
+					<h3 style="float: left;">链家大屏可视登录</h3>
+					<h5 style="float: right;"> <a href="/register">没有账号？点击注册</a></h5>
+				</div>
+				<hr style="clear: both;" />
+				<div class="input-group">
+					<span class="input-group-addon">
+						<span class="glyphicon glyphicon-user"></span>
+					</span>
+					<input type="text" class="form-control" placeholder="Username" name="username">
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon">
+						<span class="glyphicon glyphicon-lock"></span>
+					</span>
+					<input type="password" class="form-control" placeholder="Password" name="password">
+				</div>
+				<div class="msgbox">
+
+				</div>
+				<div><a id="login" class="btn btn-block btn-lg  btn-primary">登录</a></div>
+			</form>
+		</div>
+	</div> <!-- /container -->
+</body>
+<script>
+	$(function () {
+
+		$("#login").click(function () {
+
+			var loginName = $('form input').eq(0).val();
+			if (!validUserName(loginName)) {
+				swal('用户名4到16位（字母，数字，下划线，减号）', {
+					icon: "error",
+				});
+				return false;
+			}
+			var password = $('form input').eq(1).val();
+			if (!validPassword(password)) {
+				swal('请输入正确的密码格式(6-20位字符和数字组合)', {
+					icon: "error",
+				});
+				return false;
+			}
+			//验证
+			var params = $("form").serialize();
+			// 取 form表单里用户输入的数据组成 { key1:value1,key2:value2}
+			var url = '/login';
+
+
+			$.ajax({
+				type: 'POST',//方法类型
+				url: url,
+				data: params,
+				success: function (d) {
+					if (d.resultCode == 200) {
+						window.location.href = '/main';
+					} else {
+						swal(d.message, {
+							icon: "error",
+						});
+					}
+				},
+				error: function () {
+					swal("连接服务器失败", {
+						icon: "error",
+					});
+				}
+			});
+		})
+	})
+</script>
+
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>首页</title>
+	<script type="text/javascript" src="../../static/js/jquery.js"></script>
+	<style>
+		* {
+			margin: 0px;
+			padding: 0px;
+		}
+
+		.main {
+			width: 600px;
+			height: 600px;
+			position: absolute;
+			top: 100px;
+			left: 650px;
+		}
+
+		h2 {
+			font-size: 50px;
+		}
+
+
+		.btn {
+			width: 100px;
+			height: 50px;
+			border: none;
+			border-radius: 10px;
+			background-color: #5cb85c;
+		}
+
+		.btn span {
+			color: white;
+		}
+
+		.status {
+			height: 50px;
+			background-color: rgb(181, 154, 254);
+		}
+
+		.login {
+			width: 60px;
+			height: 50px;
+			border: none;
+			background-color: rgb(129, 101, 207);
+			position: absolute;
+			right: 80px;
+		}
+
+		.login span {
+			color: white;
+			font-size: 20px;
+		}
+
+		.register {
+			width: 60px;
+			height: 50px;
+			border: none;
+			background-color: rgb(129, 101, 207);
+			position: absolute;
+			right: 0px;
+		}
+
+		.register span {
+			color: white;
+			font-size: 20px;
+		}
+
+		.show {
+			width: 130px;
+			height: 50px;
+			border: none;
+			background-color: rgb(129, 101, 207);
+			position: absolute;
+			right: 160px;
+		}
+
+		.show span {
+			color: white;
+			font-size: 20px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="status">
+		<a href="/login"><button class="login"><span>登录</span></button></a>
+		<a href="/register"><button class="register"><span>注册</span></button></a>
+		<a href="/main"><button class="show"><span>链家数据大屏</span></button></a>
+	</div>
+	<div class="main">
+		<h2>房价预测</h2>
+		<br>
+		<form class="from">
+			<label>楼盘名称：</label><input name="BuildingName" placeholder="如：阿卡迪亚"><br>
+			<label>建筑面积：</label><input name="area" placeholder="如：60.5">㎡<br>
+			<label>房屋户型：</label><input name="houseType" placeholder="如：2室2厅1厨1卫"><br>
+			<label>建成年代：</label><input name="year" placeholder="如：2008">年<br>
+			<label>总楼层数：</label><input name="totalFloor" placeholder="如：18"><br>
+			<label>所在楼层：</label>
+			<select name="floor">
+				<option value="高楼层">高楼层</option>
+				<option value="中楼层">中楼层</option>
+				<option value="低楼层">低楼层</option>
+				<option value="地下室">地下室</option>
+			</select>
+			<br>
+			<label>户型结构：</label>
+			<select name="structure">
+				<option value="平层">平层</option>
+				<option value="跃层">跃层</option>
+				<option value="错层">错层</option>
+				<option value="复式">复式</option>
+			</select><br>
+			<label>建筑类型：</label>
+			<select name="buildingType">
+				<option value="塔楼">塔楼</option>
+				<option value="板楼">板楼</option>
+				<option value="平房">平房</option>
+				<option value="板塔结合">板塔结合</option>
+			</select><br>
+			<label>装修情况：</label>
+			<select name="decoration">
+				<option value="精装">精装</option>
+				<option value="简装">简装</option>
+				<option value="毛坯">毛坯</option>
+				<option value="其他">其他</option>
+			</select><br>
+			<label>供暖方式：</label>
+			<select name="heating">
+				<option value="自供暖">自供暖</option>
+				<option value="集中供暖">集中供暖</option>
+			</select><br>
+			<label>配备电梯：</label>
+			<select name="elevator">
+				<option value="有">有</option>
+				<option value="无">无</option>
+			</select><br>
+			<label>房屋朝向：</label>
+			<input type="checkbox" name="orientation" value="东">东
+			<input type="checkbox" name="orientation" value="南">南
+			<input type="checkbox" name="orientation" value="西">西
+			<input type="checkbox" name="orientation" value="北">北
+			<input type="checkbox" name="orientation" value="东南">东南
+			<input type="checkbox" name="orientation" value="东北">东北
+			<input type="checkbox" name="orientation" value="西南">西南
+			<input type="checkbox" name="orientation" value="西北">西北
+			<br>
+			<label>房屋用途：</label>
+			<select name="usage">
+				<option value="普通住宅">普通住宅</option>
+				<option value="写字楼">写字楼</option>
+				<option value="别墅">别墅</option>
+				<option value="商业">商业</option>
+				<option value="商住两用">商住两用</option>
+				<option value="底商">底商</option>
+			</select><br>
+			<label>房权所属：</label>
+			<select name="ownership">
+				<option value="共有">共有</option>
+				<option value="非共有">非共有</option>
+			</select><br>
+		</form><br>
+		<button class="btn">
+			<span id="#ybtn1">预测价格</span>
+		</button>
+		<div>
+			<h1 id="price"></h1>
+		</div>
+	</div>
+
+	<script>
+
+		$($("#ybtn1").click(function () {
+			var data = $("#form_data").serialize();
+			$.ajax({
+				url: '/predict',
+				type: 'post',
+				data: data,
+				success: function (data) {
+					console.log(data);
+					$("#price").html(data.price + "万元");
+				}
+			});
+		}))
+
+
+	</script>
+
+
+</body>
+
+</html>
