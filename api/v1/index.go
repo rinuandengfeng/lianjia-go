@@ -3,6 +3,7 @@ package v1
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"lianjia/dao"
 	"net/http"
 )
 
@@ -20,10 +21,14 @@ year_num：获取参数中年份额度条数
 func GetCount(c *gin.Context) {
 	year := c.Query("year")
 	fmt.Println(year)
+	//t := dao.TransactionDb{}
+	totalNum := dao.TotalNum()
+	yearNum := dao.GetYearNum(year)
+
 	res := map[string]interface{}{
 		"code":     200,
-		"total":    10000,
-		"year_num": 3000,
+		"total":    totalNum,
+		"year_num": yearNum,
 	}
 	c.JSON(http.StatusOK, res)
 }
