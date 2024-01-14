@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  app:
+    build:
+      context: . # 指定Dockerfile所在文件夹的路径
+      dockerfile: Dockerfile #  指定Dockerfile文件
+    command: ["air"]
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/code
+    depends_on: # 容器的依赖、启动先后问题  这个下面会先启动mysql
+      - mysql
+
+  # mysql服务
+  mysql:
+    image: mysql:8.0
+    # 设置mysql的密码及初始化数据库
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=lianjia
+      - TZ=Asia/Shanghai
+    # 挂载
+    volumes:
+      - D:\software\docker-volumes\mysql\lianjia_db:/var/lib/mysql
+    ports:
+      - 3366:3306

@@ -22,6 +22,7 @@ func NewRouter() *gin.Engine {
 		// 首页
 		v1.GET("/", api.Index)
 		v1.GET("get_count", api.GetCount)
+		v1.GET("/get_info", api.GetInfo)
 	}
 	return r
 }
